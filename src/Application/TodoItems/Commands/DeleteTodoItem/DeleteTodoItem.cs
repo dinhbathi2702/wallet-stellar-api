@@ -3,7 +3,7 @@ using wallet_stellar_api.Domain.Events;
 
 namespace wallet_stellar_api.Application.TodoItems.Commands.DeleteTodoItem;
 
-public record DeleteTodoItemCommand(int Id) : IRequest;
+public record DeleteTodoItemCommand(Guid Id) : IRequest;
 
 public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
 {
