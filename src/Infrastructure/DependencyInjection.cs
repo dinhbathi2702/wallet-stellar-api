@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using wallet_stellar_api.Infrastructure.ApiSettings;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -15,9 +16,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
+        services.Configure<ApiSettings>(configuration.GetSection("ApiSettings"));
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
